@@ -175,7 +175,3 @@ All experiments use the corresponding original test partitions. The paper report
 ```
 
 
-## Acknowledgments and third-party software
-
-This research was supported by the Wallenberg AI, Autonomous Systems and Software Program (WASP) and ELLIIT, as acknowledged in the paper. 
-

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Instance segmentation models can fail to detect, classify, or accurately localize annotated objects. This work studies **failure-aware copy-paste augmentation**, an **offline** data augmentation framework that reuses such false-negative (FN) instances to generate new training scenes. Out-of-fold predictions identify challenging ground-truth instances without evaluating an image using a model trained on that image. The resulting FN bank is used alongside ordinarily sampled annotated objects during image synthesis.
+Instance segmentation models can fail to detect, classify, or accurately localize annotated objects. This work investigates **failure-aware copy-paste augmentation**, an **offline** data augmentation framework that reuses false-negative (FN) instances to generate new training scenes. Out-of-fold predictions are used to identify challenging ground-truth instances and construct an FN bank. These instances are then combined with randomly sampled annotated objects during copy-paste augmentation.
 
 The augmentation pipeline combines object extraction and placement with **ring-based boundary blending** and **contact/cast shadow synthesis**. Experiments cover **MVTec D2S** and **ARMBench**, using **YOLOv8s-seg, YOLO11s-seg, YOLO26s-seg, Mask R-CNN, and Cascade Mask R-CNN**.
 

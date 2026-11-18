@@ -1,5 +1,5 @@
 
-##install
+## Install
 
 ```bash
 conda create -n instaboostfast python=3.10 -y

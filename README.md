@@ -10,12 +10,8 @@ The augmentation pipeline combines object extraction and placement with **ring-b
 
 ![Overview of the proposed failure-aware copy-paste framework](figures/method_overview.png)
 
-*Figure 1 from the accompanying manuscript. A five-fold out-of-fold mining stage creates an FN bank; subsequently, the object insertion pipeline uses ordinary and FN objects to produce augmented training images.*
+*Figure 1. Overview of the proposed copy-paste data augmentation framework.*
 
-1. **Out-of-fold mining.** Divide training images into five folds, keeping related MVTec scenes together. Train YOLO11s-seg on four folds and infer on the held-out fold.
-2. **Failure identification.** Select each fold's confidence threshold by the highest F1 score. Match predictions to ground truth using class-aware one-to-one matching and mask IoU ≥ 0.5. Unmatched ground-truth instances enter the FN bank with their original images, labels, and masks.
-3. **Offline synthesis.** Sample ordinary objects and, when enabled, additional FN instances. Transform and place objects onto real training images, update annotations after occlusion, blend insertion boundaries, and synthesize shadows.
-4. **Downstream evaluation.** Train instance segmentation models on the generated datasets and evaluate with COCO-style box and mask AP.
 
 ## Qualitative examples
 
@@ -23,19 +19,14 @@ The augmentation pipeline combines object extraction and placement with **ring-b
 
 ![Real images and copy-paste augmentation examples on MVTec D2S](figures/augmentation_examples.png)
 
-*Figure 2 from the manuscript. Columns compare real images, InstaBoost, Simple Copy-Paste, and the proposed augmentation under three lighting conditions. These are illustrations from the paper, not a claim that the repository generates identical samples without the original data and seed settings.*
+*Figure 2. Visual comparison of real and augmented images on MVTec D2S using InstaBoost, Simple CP, and the proposed method.*
 
 ### Instance segmentation predictions
 
 ![Instance segmentation results on MVTec D2S](figures/segmentation_results.png)
 
-*Figure 3 from the manuscript. Qualitative YOLO11s-seg results compare models trained on real data, InstaBoost, Simple Copy-Paste, and the proposed augmented dataset against ground truth.*
+*Figure 3. Qualitative comparison of instance segmentation results on MVTec D2S obtained by the baseline, InstaBoost, Simple CP, and the proposed method.*
 
-## Main findings
-
-On **MVTec D2S**, the failure-aware copy-paste pipeline improved Mask AP compared with training on real data, InstaBoost, and Simple Copy-Paste across the five evaluated instance segmentation architectures. In the controlled instance-selection experiment, replacing random non-FN objects with mined FN objects increased Mask AP by **1.59–3.97 percentage points**, with insertion counts and augmentation settings held fixed.
-
-On **ARMBench**, improvements from FN insertion were smaller and varied across architectures. The mined FN bank was much smaller than for MVTec D2S, and FN insertion did not consistently improve performance. Quantitative findings are from the **unpublished manuscript** and may change before submission. Full numerical comparisons will be provided with the public manuscript or publication.
 
 ## Repository layout
 

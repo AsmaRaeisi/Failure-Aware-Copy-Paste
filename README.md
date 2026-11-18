@@ -1,13 +1,5 @@
 # Failure-Aware Copy-Paste Augmentation for Instance Segmentation
 
-**Research implementation of _Failure-Aware Copy-Paste Augmentation for Instance Segmentation_**
-
-Asma Raeisi · Gabriel Eilertsen · Ehsan Miandji · Jonas Unger  
-Linköping University, Sweden
-
-> **Manuscript status:** In preparation (not yet submitted).  
-> **Code status:** Research implementation. Reproduction commands, dependencies, and dataset paths should be verified before public release.
-
 ## Overview
 
 Instance segmentation models can fail to detect, classify, or accurately localize annotated objects. This work studies **failure-aware copy-paste augmentation**, an **offline** data augmentation framework that reuses such false-negative (FN) instances to generate new training scenes. Out-of-fold predictions identify challenging ground-truth instances without evaluating an image using a model trained on that image. The resulting FN bank is used alongside ordinarily sampled annotated objects during image synthesis.

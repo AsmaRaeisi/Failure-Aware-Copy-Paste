@@ -103,7 +103,7 @@ Download the datasets from their official distributors and comply with their lic
 
 ## Reproduction workflow
 
-**The current scripts are configuration-driven, with path variables edited in their source files. The commands below use the files actually present in the uploaded repository; they are not a complete one-command reproduction pipeline.** Replace the `**` placeholders and other local paths before running them.
+Replace the `**` placeholders and other local paths before running them.
 
 ### 1. Mine false-negative objects
 
@@ -115,8 +115,6 @@ python fn_mining/mine_oof_failures.py --dataset d2s --stage all
 python fn_mining/mine_oof_failures.py --dataset armbench --stage all
 ```
 
-This stage is separate from the final 200-epoch downstream training. The current mining script configures 100 epochs for the fold models.
-
 ### 2. Generate augmented images
 
 Edit the dataset folders, output directory, and experiment selection near the top of each `run.py`:
@@ -126,7 +124,6 @@ python mvtec_d2s/proposed_method/run.py
 python armbench/proposed_method/run.py
 ```
 
-The MVTec script currently defines `exp60` with 2–8 ordinary objects, 2–8 FN objects, boundary blending, and shadows enabled. **The ARMBench script currently defaults to FP-distractor ablation settings** (`exp44`–`exp47`); these are **not** the primary FN-only configuration. Select the exact published ARMBench configuration before reproducing the main results. Both scripts require paths to real images, annotations, and relevant mined outputs.
 
 ### 3. Train and evaluate YOLO segmentation models
 
@@ -135,8 +132,6 @@ Edit `DATA`, `PROJECT`, `BASE_MODEL`, and any device settings in `training/yolo/
 ```bash
 python training/yolo/train.py
 ```
-
-The current script trains with 200 epochs, image size 1024, batch size 8, AdamW, initial learning rate 0.002, and seeds 42, 43, and 44; it also evaluates best-validation checkpoints on the test set.
 
 ### 4. Train and evaluate two-stage models
 
@@ -147,8 +142,6 @@ python training/RCNNs/mask_rcnn/train.py
 python training/RCNNs/cascade_mask_rcnn/train-cascade.py
 ```
 
-The manuscript uses the standard 24-epoch (2×) MMDetection schedule with ResNet-50/FPN, batch size 4, learning rate 0.005, and COCO-pretrained weights. Verify the scripts' configuration values against these settings.
-
 ### 5. Compare baseline augmentations
 
 - **Simple Copy-Paste:** `mvtec_d2s/previous_work/simple_CP/run_simple_copy_paste.py` and `armbench/Previous_work/simple_CP/run_simple_copy_paste.py`.
@@ -158,7 +151,6 @@ The manuscript uses the standard 24-epoch (2×) MMDetection schedule with ResNet
 
 All experiments use the corresponding original test partitions. The paper reports **Box AP** and **Mask AP** according to COCO evaluation, averaging AP over IoU thresholds from 0.50 to 0.95, and separately reports AP50 (and AP75 for the two-stage models). Summary metrics use the **mean and standard deviation across three random seeds**.
 
-The paper evaluates training on real data, InstaBoost, Simple Copy-Paste, the proposed pipeline without FN insertion, and the full proposed pipeline. A controlled comparison also contrasts mined FN selection with random non-FN selection under the same insertion counts and settings.
 
 ## Reproducibility notes
 
@@ -166,8 +158,7 @@ The paper evaluates training on real data, InstaBoost, Simple Copy-Paste, the pr
 - The MVTec class-ID mapping must be identical across training, validation, test, and generated datasets.
 - Preserve scene-aware grouping both in the main dataset split and in out-of-fold FN mining.
 - Save the exact split manifests, experiment settings, package versions, and random seeds used for the manuscript.
-- Large data, model checkpoints, temporary outputs, and machine-specific paths should not be committed.
-- Some current scripts use hardcoded local paths and require manual configuration. Validate end-to-end execution from a fresh clone before marking this as a fully reproducible release.
+
 
 ## Citation
 
@@ -183,12 +174,8 @@ The paper evaluates training on real data, InstaBoost, Simple Copy-Paste, the pr
 }
 ```
 
-*Update the URL above if the final repository is published under a different name. Do not cite a DOI or venue until one exists.*
 
 ## Acknowledgments and third-party software
 
-This research was supported by the Wallenberg AI, Autonomous Systems and Software Program (WASP) and ELLIIT, as acknowledged in the paper. The project builds on Ultralytics, MMDetection, and prior InstaBoost / Simple Copy-Paste research. The COCO-to-LabelMe conversion workflow also draws on [travishsu’s public gist](https://gist.github.com/travishsu/6efa5c9fb92ece37b4748036026342f6). Retain applicable copyright notices and check third-party licensing before redistribution.
+This research was supported by the Wallenberg AI, Autonomous Systems and Software Program (WASP) and ELLIIT, as acknowledged in the paper. 
 
-## License
-
-**To be selected before publication.** Do not add a license or redistribute third-party implementations until the corresponding permissions and licensing obligations have been reviewed.

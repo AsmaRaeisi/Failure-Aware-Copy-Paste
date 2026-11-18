@@ -1,0 +1,9 @@
+instaboostfast==0.1.2
+numpy
+opencv-python
+scipy
+Cython
+pycocotools
+matplotlib
+Pillow
+scikit-image

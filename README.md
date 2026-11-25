@@ -162,7 +162,7 @@ All experiments use the corresponding original test partitions. The paper report
 
 ## Citation
 
-**The manuscript is currently in preparation and has not been submitted or published.** A paper citation and DOI will be added once a citable public manuscript is available. Until then, please reference this software repository if you use the released code:
+**The manuscript has not been published yet.** A paper citation and DOI will be added once a citable public manuscript is available. Until then, please reference this software repository if you use the released code:
 
 ```bibtex
 @misc{raeisi_failure_aware_copy_paste_code,
